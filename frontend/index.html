@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Rank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="loading-screen" class="screen active">
+      <div class="loader-ring"></div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login-screen" class="screen">
+      <div class="login-card">
+        <div class="logo">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="24" fill="#1DB954"/>
+            <path d="M12 30 Q24 10 36 30" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="24" cy="24" r="5" fill="white"/>
+            <circle cx="24" cy="24" r="2" fill="#1DB954"/>
+          </svg>
+          <h1>Music Rank</h1>
+        </div>
+        <p class="tagline">Discover your top tracks through head-to-head duels</p>
+        <a href="/login" class="btn-spotify">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          Continue with Spotify
+        </a>
+        <div id="login-error" class="error-msg hidden"></div>
+      </div>
+    </div>
+
+    <!-- PLAYLIST PICKER -->
+    <div id="playlist-screen" class="screen">
+      <header class="app-header">
+        <div class="header-logo">
+          <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="24" fill="#1DB954"/>
+            <path d="M12 30 Q24 10 36 30" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <circle cx="24" cy="24" r="5" fill="white"/>
+            <circle cx="24" cy="24" r="2" fill="#1DB954"/>
+          </svg>
+          <span>Music Rank</span>
+        </div>
+        <div class="header-user">
+          <img id="user-avatar" src="" alt="" class="avatar" />
+          <span id="user-name"></span>
+          <button id="logout-btn" class="btn-ghost small">Logout</button>
+        </div>
+      </header>
+      <main class="playlist-main">
+        <h2>Choose a playlist to rank</h2>
+        <p class="subtitle">Import a playlist and start ranking tracks head-to-head</p>
+        <div id="playlist-grid" class="playlist-grid"></div>
+      </main>
+    </div>
+
+    <!-- DUEL -->
+    <div id="duel-screen" class="screen">
+      <header class="app-header">
+        <button id="duel-back-btn" class="btn-ghost small">← Back</button>
+        <div id="playlist-title" class="playlist-title-header"></div>
+        <button id="leaderboard-btn" class="btn-ghost small">Leaderboard</button>
+      </header>
+      <main class="duel-main">
+        <div class="duel-counter">
+          <span id="duel-count">0</span> duels completed
+        </div>
+        <div class="duel-arena" id="duel-arena">
+          <div class="track-card" id="card-a" data-side="a">
+            <div class="track-img-wrap">
+              <img id="img-a" src="" alt="" />
+            </div>
+            <div class="track-info">
+              <div class="track-name" id="name-a"></div>
+              <div class="track-artist" id="artist-a"></div>
+              <div class="track-album" id="album-a"></div>
+            </div>
+            <div class="pick-overlay">
+              <span>Pick this ♥</span>
+            </div>
+          </div>
+
+          <div class="vs-divider">VS</div>
+
+          <div class="track-card" id="card-b" data-side="b">
+            <div class="track-img-wrap">
+              <img id="img-b" src="" alt="" />
+            </div>
+            <div class="track-info">
+              <div class="track-name" id="name-b"></div>
+              <div class="track-artist" id="artist-b"></div>
+              <div class="track-album" id="album-b"></div>
+            </div>
+            <div class="pick-overlay">
+              <span>Pick this ♥</span>
+            </div>
+          </div>
+        </div>
+        <button id="skip-btn" class="btn-ghost skip-btn">Skip this pair</button>
+      </main>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div id="leaderboard-screen" class="screen">
+      <header class="app-header">
+        <button id="lb-back-btn" class="btn-ghost small">← Back to Duel</button>
+        <div id="lb-playlist-title" class="playlist-title-header"></div>
+        <button id="export-btn" class="btn-primary small">Export Top 20</button>
+      </header>
+      <main class="lb-main">
+        <div class="lb-stats">
+          <span id="lb-duel-count">0</span> duels · <span id="lb-track-count">0</span> tracks
+        </div>
+        <div id="lb-list" class="lb-list"></div>
+      </main>
+    </div>
+
+    <!-- EXPORT MODAL -->
+    <div id="export-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <h3>Export to Spotify</h3>
+        <label>Playlist name
+          <input id="export-name" type="text" value="Music Rank Top Tracks" />
+        </label>
+        <label>Number of tracks
+          <input id="export-n" type="number" value="20" min="1" max="100" />
+        </label>
+        <div class="modal-actions">
+          <button id="export-cancel" class="btn-ghost">Cancel</button>
+          <button id="export-confirm" class="btn-primary">Create Playlist</button>
+        </div>
+        <div id="export-result" class="hidden export-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
