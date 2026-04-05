@@ -10,7 +10,7 @@ load_dotenv(find_dotenv())
 CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID", "")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET", "")
 REDIRECT_URI = os.getenv("REDIRECT_URI", "http://127.0.0.1:8000/callback")
-SCOPES = "playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private"
+SCOPES = "playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-library-read"
 
 AUTH_URL = "https://accounts.spotify.com/authorize"
 TOKEN_URL = "https://accounts.spotify.com/api/token"
@@ -114,6 +114,39 @@ def get_playlist_tracks(access_token: str, playlist_id: str) -> list[dict]:
         else:
             break
     return tracks
+
+
+def get_liked_songs(access_token: str) -> list[dict]:
+    tracks = []
+    path = "/me/tracks"
+    params = {"limit": 50, "offset": 0}
+    while path:
+        data = _get(access_token, path, params)
+        for item in data.get("items", []):
+            t = item.get("track")
+            if not t or not t.get("id"):
+                continue
+            images = t.get("album", {}).get("images", [])
+            tracks.append({
+                "id": t["id"],
+                "name": t["name"],
+                "artist": ", ".join(a["name"] for a in t.get("artists", [])),
+                "album": t.get("album", {}).get("name", ""),
+                "image_url": images[0]["url"] if images else None,
+                "preview_url": t.get("preview_url"),
+                "playlist_id": "__liked__",
+            })
+        if data.get("next") and len(tracks) < 500:
+            path = data["next"]
+            params = None
+        else:
+            break
+    return tracks
+
+
+def get_liked_songs_count(access_token: str) -> int:
+    data = _get(access_token, "/me/tracks", {"limit": 1, "offset": 0})
+    return data.get("total", 0)
 
 
 def create_playlist(access_token: str, user_id: str, name: str, track_ids: list[str]) -> str:

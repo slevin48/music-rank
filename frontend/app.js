@@ -84,15 +84,27 @@ function renderPlaylists() {
   const grid = $('playlist-grid');
   grid.innerHTML = '';
   state.playlists.forEach(pl => {
+    const isLiked = pl.id === '__liked__';
     const item = document.createElement('div');
-    item.className = 'playlist-item';
+    item.className = 'playlist-item' + (isLiked ? ' liked-songs' : '');
     item.dataset.id = pl.id;
-    item.innerHTML = `
-      <img src="${pl.image_url || ''}" alt="${esc(pl.name)}" onerror="this.style.opacity=0" />
-      <div class="playlist-item-info">
-        <div class="playlist-item-name">${esc(pl.name)}</div>
-        <div class="playlist-item-count">${pl.track_count} tracks</div>
-      </div>`;
+    if (isLiked) {
+      item.innerHTML = `
+        <div class="liked-songs-art">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div class="playlist-item-info">
+          <div class="playlist-item-name">Liked Songs</div>
+          <div class="playlist-item-count">${pl.track_count} tracks</div>
+        </div>`;
+    } else {
+      item.innerHTML = `
+        <img src="${pl.image_url || ''}" alt="${esc(pl.name)}" onerror="this.style.opacity=0" />
+        <div class="playlist-item-info">
+          <div class="playlist-item-name">${esc(pl.name)}</div>
+          <div class="playlist-item-count">${pl.track_count} tracks</div>
+        </div>`;
+    }
     item.addEventListener('click', () => selectPlaylist(pl));
     grid.appendChild(item);
   });
