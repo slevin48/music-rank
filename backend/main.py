@@ -140,7 +140,15 @@ def get_me(music_rank_session: str | None = Cookie(default=None)):
 def get_playlists(music_rank_session: str | None = Cookie(default=None)):
     sess = _get_session(music_rank_session)
     access_token = _maybe_refresh(sess)
-    return sp.get_user_playlists(access_token)
+    playlists = sp.get_user_playlists(access_token)
+    liked_count = sp.get_liked_songs_count(access_token)
+    liked = {
+        "id": "__liked__",
+        "name": "Liked Songs",
+        "track_count": liked_count,
+        "image_url": None,
+    }
+    return [liked] + playlists
 
 
 @app.post("/api/playlists/{playlist_id}/import")
@@ -148,7 +156,10 @@ def import_playlist(playlist_id: str,
                     music_rank_session: str | None = Cookie(default=None)):
     sess = _get_session(music_rank_session)
     access_token = _maybe_refresh(sess)
-    tracks = sp.get_playlist_tracks(access_token, playlist_id)
+    if playlist_id == "__liked__":
+        tracks = sp.get_liked_songs(access_token)
+    else:
+        tracks = sp.get_playlist_tracks(access_token, playlist_id)
     with db.get_conn() as conn:
         for track in tracks:
             db.upsert_track(conn, track)
