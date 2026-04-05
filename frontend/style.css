@@ -91,7 +91,7 @@ body {
   align-items: center;
   gap: 10px;
   padding: 14px 28px;
-  background: var(--green);
+  background: #48dbfb;
   color: #000;
   font-weight: 600;
   font-size: 0.95rem;
@@ -101,7 +101,7 @@ body {
   width: 100%;
   justify-content: center;
 }
-.btn-spotify:hover { background: var(--green-dark); transform: translateY(-1px); }
+.btn-spotify:hover { background: #0abde3; transform: translateY(-1px); }
 .btn-spotify:active { transform: translateY(0); }
 
 /* ── Header ── */
