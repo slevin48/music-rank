@@ -10,9 +10,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-import database as db
-import spotify as sp
-from elo import update_elo
+from . import database as db
+from . import spotify as sp
+from .elo import update_elo
 
 load_dotenv()
 
