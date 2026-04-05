@@ -245,14 +245,14 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: linear-gradient(135deg, #4b2080, #8b2fc9, #d946a8);
+  background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb);
   border-color: transparent;
   padding: 0;
   overflow: hidden;
 }
 .playlist-item.liked-songs:hover {
-  border-color: #d946a8;
-  box-shadow: 0 12px 40px rgba(217, 70, 168, 0.3);
+  border-color: #48dbfb;
+  box-shadow: 0 12px 40px rgba(72, 219, 251, 0.3);
   transform: translateY(-3px);
 }
 .liked-songs-art {
@@ -263,7 +263,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: linear-gradient(135deg, #5b30a0, #a040d0);
+  background: linear-gradient(135deg, #ff6b6b, #feca57);
 }
 .playlist-item.liked-songs .playlist-item-info {
   padding: 16px 24px;
