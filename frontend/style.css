@@ -266,12 +266,18 @@ body {
   display: flex;
   flex-direction: column;
 }
-.track-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 40px rgba(124,77,255,0.2);
-  transform: scale(1.01);
+@media (hover: hover) {
+  .track-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 40px rgba(124,77,255,0.2);
+    transform: scale(1.01);
+  }
+  .track-card:hover .pick-overlay { opacity: 1; }
+  .track-card:hover .track-img-wrap img { transform: scale(1.04); }
 }
-.track-card:hover .pick-overlay { opacity: 1; }
+@media (hover: none) {
+  .pick-overlay { opacity: 1; }
+}
 .track-img-wrap {
   flex: 1;
   overflow: hidden;
@@ -284,7 +290,6 @@ body {
   display: block;
   transition: transform 0.3s;
 }
-.track-card:hover .track-img-wrap img { transform: scale(1.04); }
 .track-info {
   padding: 16px;
   background: linear-gradient(to top, var(--surface) 0%, transparent 100%);
