@@ -1,4 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6b6b"/>
+      <stop offset="50%" stop-color="#feca57"/>
+      <stop offset="100%" stop-color="#48dbfb"/>
+    </linearGradient>
+  </defs>
   <rect width="512" height="512" rx="96" fill="#121212"/>
-  <text x="256" y="360" font-size="320" text-anchor="middle">🎵</text>
+  <!-- Double beamed eighth notes (🎶) -->
+  <g fill="url(#grad)" transform="translate(76, 80) scale(0.7)">
+    <!-- First note stem + head -->
+    <rect x="163" y="100" width="18" height="310"/>
+    <ellipse cx="140" cy="405" rx="55" ry="40" transform="rotate(-15, 140, 405)"/>
+    <!-- Second note stem + head -->
+    <rect x="383" y="60" width="18" height="310"/>
+    <ellipse cx="360" cy="365" rx="55" ry="40" transform="rotate(-15, 360, 365)"/>
+    <!-- Beams connecting the two notes -->
+    <polygon points="163,100 401,60 401,90 163,130"/>
+    <polygon points="163,160 401,120 401,150 163,190"/>
+  </g>
 </svg>
