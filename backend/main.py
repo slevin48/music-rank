@@ -247,5 +247,5 @@ async def export_playlist(playlist_id: str, request: Request,
 @app.get("/{full_path:path}")
 def serve_spa(full_path: str):
     index = os.path.join(FRONTEND_DIR, "index.html")
-    with open(index) as f:
+    with open(index, encoding='utf-8') as f:
         return HTMLResponse(f.read())

@@ -3,13 +3,13 @@ import time
 import secrets
 import urllib.parse
 import httpx
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-load_dotenv()
+load_dotenv(find_dotenv())
 
 CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID", "")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET", "")
-REDIRECT_URI = os.getenv("REDIRECT_URI", "http://localhost:8000/callback")
+REDIRECT_URI = os.getenv("REDIRECT_URI", "http://127.0.0.1:8000/callback")
 SCOPES = "playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private"
 
 AUTH_URL = "https://accounts.spotify.com/authorize"
