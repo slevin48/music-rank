@@ -1,7 +1,8 @@
+import os
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent / "music_rank.db"
+DB_PATH = Path(os.getenv("DATABASE_URL", Path(__file__).parent / "music_rank.db"))
 
 
 def get_conn() -> sqlite3.Connection:
