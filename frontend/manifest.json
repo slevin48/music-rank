@@ -1,11 +1,11 @@
 {
-  "name": "Music Rank",
-  "short_name": "Music Rank",
+  "name": "playd",
+  "short_name": "playd",
   "description": "Rank your Spotify playlists through head-to-head track duels",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0f",
-  "theme_color": "#7c4dff",
+  "background_color": "#121212",
+  "theme_color": "#48dbfb",
   "orientation": "portrait-primary",
   "categories": ["music", "entertainment"],
   "icons": [
